@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Теодарская Пицца 1000 мускулов — фитнес-рецепты</title>
+<title>1000 Muscles — фитнес-рецепты</title>
 <meta name="description" content="Пятнадцать белковых фитнес-рецептов с посчитанными калориями и БЖУ: творожная пицца, панкейки, хачапури, шаурма, поке и другие.">
 <meta name="theme-color" content="#17212B">
-<meta property="og:title" content="Теодарская Пицца 1000 мускулов">
+<meta property="og:title" content="1000 Muscles">
 <meta property="og:description" content="Белковые фитнес-рецепты с калориями и БЖУ.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%2317212B'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='%232F5BFF' font-family='Arial' font-weight='800'%3E1K%3C/text%3E%3C/svg%3E">
@@ -103,11 +103,6 @@ summary{cursor:pointer;font-weight:600;min-height:32px;display:flex;align-items:
 details ul{margin:10px 0 0;padding-left:20px;color:var(--muted)}
 details p{margin-top:10px;color:var(--muted)}
 
-/* steps */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border-top:2px solid var(--ink)}
-.step{padding:24px 24px 24px 0}
-.step h3{margin-bottom:10px}
-.step p{color:var(--muted)}
 
 /* cta */
 .final{background:var(--accent);color:var(--on-accent);text-align:left}
@@ -137,6 +132,7 @@ summary{font-weight:700}
 .hero{background-image:radial-gradient(circle at 85% 20%,rgba(47,91,255,.35),transparent 45%),repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 2px,transparent 2px 22px)}
 .sec-head h2{position:relative;padding-bottom:12px}
 .sec-head h2::after{content:"";position:absolute;left:0;bottom:0;width:56px;height:4px;background:var(--accent)}
+[hidden]{display:none!important}
 /* diary */
 .dnav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .dtitle{margin-bottom:14px}
@@ -176,6 +172,9 @@ dialog::backdrop{background:rgba(11,17,23,.65)}
 .fld{display:grid;gap:6px;font-weight:600;font-size:.95rem}
 .fld input,.fld select{min-height:48px;padding:0 12px;border:2px solid var(--line);border-radius:3px;background:var(--bg);color:var(--ink);font:500 1rem var(--body);width:100%}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fld input,.fld select{-webkit-appearance:none;appearance:none;height:48px;min-width:0;line-height:normal;box-sizing:border-box;margin:0}
+.fld select{padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%237C8A98' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+
 .hint{color:var(--muted);font-size:.9rem;font-weight:400}
 .dprev{font-weight:700;color:var(--accent)}
 .dbtns{display:flex;gap:10px}.dbtns .btn{flex:1}
@@ -186,15 +185,20 @@ dialog::backdrop{background:rgba(11,17,23,.65)}
 .tabbar a{display:flex;align-items:center;justify-content:center;min-height:56px;text-decoration:none;font:700 1.15rem var(--head);letter-spacing:.08em;text-transform:uppercase;opacity:.75;border-top:3px solid transparent;margin-top:-1px}
 .tabbar a[aria-current=true]{opacity:1;border-top-color:var(--accent)}
 body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
+.choose{display:grid;gap:12px;margin-top:16px}
+.choice{display:grid;gap:6px;text-align:left;padding:16px 18px;min-height:84px;border:2px solid var(--ink);border-radius:3px;background:transparent;color:var(--ink);cursor:pointer}
+.choice b{font:700 1.5rem/1 var(--head);letter-spacing:.04em;text-transform:uppercase}
+.choice span{color:var(--muted);font-size:.95rem}
+.choice:hover{background:var(--ink);color:var(--bg)}.choice:hover span{color:inherit}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="#top">1000<b>.</b>МУСКУЛОВ</a>
+    <a class="logo" href="#top">1000<b>.</b>MUSCLES</a>
     <nav aria-label="Основное меню"><ul>
-      <li><a href="#recipes">Рецепты</a></li><li><a href="#diary">Мой день</a></li><li><a href="#how">Как готовить</a></li>
+      <li><a href="#recipes">Рецепты</a></li><li><a href="#diary">Мой день</a></li>
     </ul></nav>
     <a class="btn" href="#diary" style="min-height:42px;padding:0 20px">Мой день</a>
   </div>
@@ -203,7 +207,7 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
 <main id="top">
   <div class="hero">
     <div class="wrap">
-      <h1>Теодарская пицца 1000 мускулов</h1>
+      <h1>1000 Muscles</h1>
       <p class="lead">Белковые рецепты: пицца, хачапури, оладьи, шаурма, поке, запеканки и другие. Простые ингредиенты, у каждого блюда посчитаны калории и БЖУ.</p>
       <div class="cta"><a class="btn" href="#recipes">Смотреть рецепты</a><a class="btn ghost" href="#diary">Мой день</a></div>
       <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -235,8 +239,8 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
   <section id="diary">
     <div class="wrap">
       <div class="sec-head">
-        <div><h2>Мой день</h2><p style="margin-top:12px">Дневной счётчик калорий и БЖУ. Записи сохраняются на этом устройстве, прошлые дни остаются в истории.</p></div>
-        <div class="dnav"><button class="tab" id="dPrev" type="button"></button><button class="tab" id="dToday" type="button">Сегодня</button><button class="tab" id="dNext" type="button"></button><button class="tab" id="dGoals" type="button">Настроить цели</button></div>
+        <div><h2>Мой день</h2><p style="margin-top:12px">Дневной счётчик калорий и БЖУ. Записывайте всё, что съели сегодня, и смотрите, сколько ещё осталось. Данные сохраняются на этом устройстве.</p></div>
+        <div class="dnav"><button class="tab" id="dGoals" type="button">Настроить цели</button></div>
       </div>
       <h3 class="dtitle" id="dTitle"></h3>
       <div class="remain"><h3 id="dRem"></h3><div class="meters" id="meters" aria-live="polite"></div><p class="dhint" id="dHint"></p><p class="dwarn" id="dWarn" hidden>Не удаётся сохранить данные в этом браузере: записи пропадут после закрытия страницы.</p></div>
@@ -249,16 +253,22 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
 
   <dialog id="dlgAdd" aria-labelledby="dlgT">
     <h3 id="dlgT">Добавить еду</h3>
-    <div class="tabs" id="dTabs" style="margin-top:14px"><button class="tab" type="button" data-m="r" aria-pressed="true">Из рецептов</button><button class="tab" type="button" data-m="p" aria-pressed="false">Свой продукт</button></div>
-    <label class="fld" style="margin-top:14px">Время<input type="time" id="tm"></label>
+    <div class="choose" id="fC">
+      <button type="button" class="choice" data-m="r"><b>Блюдо из рецептов</b><span>Выберите рецепт с сайта. Калории и БЖУ подставятся сами.</span></button>
+      <button type="button" class="choice" data-m="p"><b>Свой продукт</b><span>Впишите название, вес и калории, например куриную грудку.</span></button>
+      <div class="dbtns"><button class="btn ghost" type="button" data-close>Отмена</button></div>
+    </div>
+    <label class="fld" id="tmW" style="margin-top:14px" hidden>Время<input type="time" id="tm"></label>
     <form id="fR" class="dform">
+      <p class="hint">Выберите блюдо и число порций. Калории и БЖУ посчитаются автоматически.</p>
       <label class="fld">Рецепт<select id="rSel"></select></label>
       <label class="fld">Количество порций<input id="rQty" type="number" min="0.1" step="0.1" value="1" inputmode="decimal" required></label>
       <label class="opt" id="rOptW" hidden><input type="checkbox" id="rOpt"> <span id="rOptT"></span></label>
       <div class="dprev" id="rPrev"></div>
-      <div class="dbtns"><button class="btn ghost" type="button" data-close>Отмена</button><button class="btn" type="submit">Добавить</button></div>
+      <div class="dbtns"><button class="btn ghost bk" type="button">← Назад</button><button class="btn" type="submit">Добавить</button></div>
     </form>
     <form id="fP" class="dform" hidden>
+      <p class="hint">Впишите, что съели, и сколько калорий и БЖУ в этом продукте (данные есть на упаковке).</p>
       <label class="fld">Что съели?<input id="pN" type="text" placeholder="Куриная грудка" maxlength="60" required></label>
       <div class="row2">
         <label class="fld">Количество<input id="pQ" type="number" min="0.1" step="any" inputmode="decimal" value="100" required></label>
@@ -272,7 +282,7 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
         <label class="fld">Углеводы, г<input id="pc" type="number" min="0" step="any" inputmode="decimal" value="0" required></label>
       </div>
       <div class="dprev" id="pPrev"></div>
-      <div class="dbtns"><button class="btn ghost" type="button" data-close>Отмена</button><button class="btn" type="submit" id="pOk">Добавить</button></div>
+      <div class="dbtns"><button class="btn ghost bk" type="button">← Назад</button><button class="btn" type="submit" id="pOk">Добавить</button></div>
     </form>
   </dialog>
 
@@ -290,18 +300,6 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
     </form>
   </dialog>
 
-  <section id="how">
-    <div class="wrap">
-      <h2 style="margin-bottom:32px">Как это работает</h2>
-      <div class="steps">
-        <div class="step"><h3>Выбрать рецепт</h3><p>От творожной пиццы до шаурмы и поке.</p></div>
-        <div class="step"><h3>Смешать</h3><p>Всё замешивается в одной миске, без сложной техники.</p></div>
-        <div class="step"><h3>Добавить своё</h3><p>Начинка для пиццы — любая на ваш вкус. К панкейкам можно добавить творог.</p></div>
-        <div class="step"><h3>Готовить и есть</h3><p>Выпекай, жарь или просто собери миску. Всё занимает 15–30 минут.</p></div>
-      </div>
-    </div>
-  </section>
-
   <section id="join" class="final">
     <div class="wrap">
       <h2>Выбрать рецепт и готовить</h2>
@@ -311,7 +309,7 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
   </section>
 </main>
 
-<footer><div class="wrap"><span>© Теодарская Пицца 1000 мускулов</span><span>Значения КБЖУ ориентировочные и не заменяют консультацию врача или диетолога.</span></div></footer>
+<footer><div class="wrap"><span>© Almir Khialov · 1000 Muscles</span><span>Значения КБЖУ ориентировочные и не заменяют консультацию врача или диетолога.</span></div></footer>
 <div class="tabbar" role="navigation" aria-label="Быстрый доступ"><a href="#diary">Мой день</a><a href="#recipes">Рецепты</a></div>
 
 <script>
@@ -442,10 +440,8 @@ const R0=v=>Math.round(v);
 function render(){
   const s=sel,t0=today(),es=entries(s).slice().sort((a,b)=>a.time.localeCompare(b.time)),G=goalsFor(s),T={k:0,p:0,f:0,c:0};
   es.forEach(e=>{const t=tot(e);KEYS.forEach(x=>T[x]+=t[x])});
-  $('dTitle').textContent=(s===t0?'Сегодня, ':'')+fmt(s,true);
-  $('dRem').textContent=s===t0?'Осталось сегодня':s<t0?'Итог дня':'План на день';
-  $('dPrev').textContent='← '+fmt(shift(s,-1));$('dNext').textContent=fmt(shift(s,1))+' →';
-  $('dToday').hidden=s===t0;
+  $('dTitle').textContent='Сегодня, '+fmt(s,true);
+  $('dRem').textContent='Осталось сегодня';
   $('dHint').textContent=D.goalsSet?'':'Сейчас стоят цели по умолчанию. Нажмите «Настроить цели», чтобы задать свои.';
   $('meters').innerHTML=M.map(([x,n,u])=>{
     const t=R0(T[x]),g=G[x],r=R0(g)-t,pct=g?Math.min(100,t/g*100):0;
@@ -454,27 +450,28 @@ function render(){
   $('dList').innerHTML=es.length?es.map(e=>{const t=tot(e);return `<article class="entry" data-id="${e.id}"><div class="eh"><div><time>${e.time}</time><h4>${esc(e.name)}</h4></div><div class="ek">${R0(t.k)} ккал</div></div><div class="em">Белки ${R0(t.p)} г / Жиры ${R0(t.f)} г / Углеводы ${R0(t.c)} г · ${e.qty} ${e.unit}</div><div class="eact"><button type="button" data-act="edit">Изменить</button><button type="button" data-act="dup">Копия</button><button type="button" data-act="del">Удалить</button></div></article>`}).join(''):'<div class="dempty">Пока ничего не добавлено. Нажмите «+ Добавить еду».</div>';
   $('dSum').innerHTML=`<span>Итого: ${R0(T.k)} ккал</span><span>Б ${R0(T.p)} г / Ж ${R0(T.f)} г / У ${R0(T.c)} г</span>`;
 }
-function setMode(m){document.querySelectorAll('#dTabs .tab').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));$('fR').hidden=m!=='r';$('fP').hidden=m!=='p';(m==='r'?prevR:prevP)()}
+function setMode(m){$('fC').hidden=m!=='c';$('fR').hidden=m!=='r';$('fP').hidden=m!=='p';$('tmW').hidden=m==='c';
+  $('dlgT').textContent=editId?'Изменить запись':m==='c'?'Что добавить?':m==='r'?'Блюдо из рецептов':'Свой продукт';
+  document.querySelectorAll('.bk').forEach(b=>b.textContent=editId?'Отмена':'← Назад');
+  if(m==='r')prevR();if(m==='p')prevP()}
 function line(k,p,f,c){return `${R0(k)} ккал · Б ${R0(p)} / Ж ${R0(f)} / У ${R0(c)} г`}
 function perR(){const r=R[+$('rSel').value],on=r.opt&&$('rOpt').checked,o={};KEYS.forEach(x=>o[x]=r.base[x]+(on?r.opt[x]:0));return{r,on,o}}
 function prevR(){const{r,o}=perR(),q=num($('rQty').value);$('rOptW').hidden=!r.opt;if(r.opt)$('rOptT').textContent=r.opt.label;$('rPrev').textContent='Итого: '+line(o.k*q,o.p*q,o.f*q,o.c*q)}
 function prevP(){const u=$('pU').value,q=num($('pQ').value),m=u==='г'?q/100:q;$('pH').textContent=u==='г'?'Ккал и БЖУ укажите на 100 г продукта.':'Ккал и БЖУ укажите на 1 порцию.';$('pPrev').textContent='Итого: '+line(num($('pk').value)*m,num($('pp').value)*m,num($('pf').value)*m,num($('pc').value)*m)}
-function openAdd(){editId=null;$('dlgT').textContent='Добавить еду';$('dTabs').hidden=false;$('tm').value=nowT();$('rQty').value=1;$('rOpt').checked=false;$('pOk').textContent='Добавить';$('fP').reset();$('pQ').value=100;setMode('r');$('dlgAdd').showModal()}
-function openEdit(e){editId=e.id;$('dlgT').textContent='Изменить запись';$('dTabs').hidden=true;$('tm').value=e.time;$('pN').value=e.name;$('pQ').value=e.qty;$('pU').value=e.unit;$('pk').value=e.per.k;$('pp').value=e.per.p;$('pf').value=e.per.f;$('pc').value=e.per.c;$('pOk').textContent='Сохранить';setMode('p');$('dlgAdd').showModal()}
+function openAdd(){editId=null;$('tm').value=nowT();$('rQty').value=1;$('rOpt').checked=false;$('pOk').textContent='Добавить';$('fP').reset();$('pQ').value=100;setMode('c');$('dlgAdd').showModal()}
+function openEdit(e){editId=e.id;$('tm').value=e.time;$('pN').value=e.name;$('pQ').value=e.qty;$('pU').value=e.unit;$('pk').value=e.per.k;$('pp').value=e.per.p;$('pf').value=e.per.f;$('pc').value=e.per.c;$('pOk').textContent='Сохранить';setMode('p');$('dlgAdd').showModal()}
 function save(o){const d=D.days[sel]||(D.days[sel]={entries:[]}),time=$('tm').value||nowT();
   if(editId){const i=d.entries.findIndex(e=>e.id===editId);if(i>=0)d.entries[i]={...d.entries[i],...o,time}}else d.entries.push({id:newId(),time,...o});
   $('dlgAdd').close();persist();render()}
 $('rSel').innerHTML=Object.keys(CAT).map(c=>`<optgroup label="${CAT[c]}">`+R.map((r,i)=>r.cat===c?`<option value="${i}">${esc(r.n)}</option>`:'').join('')+'</optgroup>').join('');
 ['rSel','rQty','rOpt'].forEach(i=>$(i).addEventListener('input',prevR));
 ['pU','pQ','pk','pp','pf','pc'].forEach(i=>$(i).addEventListener('input',prevP));
-document.querySelectorAll('#dTabs .tab').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.m)));
+document.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.m)));
+document.querySelectorAll('.bk').forEach(b=>b.addEventListener('click',()=>editId?$('dlgAdd').close():setMode('c')));
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
 $('fR').addEventListener('submit',e=>{e.preventDefault();const{r,on,o}=perR(),l=on?r.opt.label:'';save({name:r.n+(on?' ('+l.charAt(0).toLowerCase()+l.slice(1)+')':''),qty:num($('rQty').value)||1,unit:'порц.',per:o})});
 $('fP').addEventListener('submit',e=>{e.preventDefault();save({name:$('pN').value.trim()||'Продукт',qty:num($('pQ').value)||1,unit:$('pU').value,per:{k:num($('pk').value),p:num($('pp').value),f:num($('pf').value),c:num($('pc').value)}})});
 $('dAdd').addEventListener('click',openAdd);
-$('dPrev').addEventListener('click',()=>{sel=shift(sel,-1);render()});
-$('dNext').addEventListener('click',()=>{sel=shift(sel,1);render()});
-$('dToday').addEventListener('click',()=>{sel=today();render()});
 $('dGoals').addEventListener('click',()=>{KEYS.forEach(x=>$('g'+x).value=D.goals[x]);$('dlgGoals').showModal()});
 $('fG').addEventListener('submit',e=>{e.preventDefault();const n={},old=D.goals;KEYS.forEach(x=>n[x]=num($('g'+x).value)||old[x]);
   Object.keys(D.days).forEach(s=>{if(s<today()&&!D.days[s].goals)D.days[s].goals={...old}});
@@ -483,7 +480,7 @@ $('dList').addEventListener('click',e=>{const b=e.target.closest('[data-act]');i
   if(b.dataset.act==='del'){if(confirm('Удалить «'+en.name+'»?')){arr.splice(i,1);persist();render()}}
   else if(b.dataset.act==='dup'){arr.splice(i+1,0,{...en,id:newId(),per:{...en.per}});persist();render()}
   else openEdit(en)});
-function tick(){const t=today();if(t!==lastToday){if(sel===lastToday)sel=t;lastToday=t;render()}}
+function tick(){const t=today();if(t!==lastToday){sel=lastToday=t;render()}}
 setInterval(tick,30000);document.addEventListener('visibilitychange',tick);
 (async()=>{const s=await Store.load();if(s&&s.days)D={goals:{...DEF,...s.goals},goalsSet:!!s.goalsSet,days:s.days};sel=lastToday=today();render()})();
 const tb=[...document.querySelectorAll('.tabbar a')],io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)tb.forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -45% 0px'});
