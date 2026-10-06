@@ -181,6 +181,11 @@ dialog::backdrop{background:rgba(11,17,23,.65)}
 .dbtns{display:flex;gap:10px}.dbtns .btn{flex:1}
 @media(max-width:900px){.meters{grid-template-columns:repeat(3,minmax(0,1fr))}.meter:first-child{grid-column:1/-1}.meter:first-child .mv b{font-size:3.6rem}}
 @media(max-width:600px){dialog{margin:auto 0 0;width:100%;max-width:none;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}.meter{padding:10px}.mn{font-size:.8rem;letter-spacing:.06em}.mv b{font-size:2rem}.meter:first-child .mv b{font-size:3.4rem}.ms{font-size:.78rem}.dnav .tab{flex:1 1 40%}}
+.tabbar{display:none}
+@media(max-width:720px){.tabbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--steel);color:var(--on-steel);padding-bottom:env(safe-area-inset-bottom,0px);border-top:1px solid #2E3B49}
+.tabbar a{display:flex;align-items:center;justify-content:center;min-height:56px;text-decoration:none;font:700 1.15rem var(--head);letter-spacing:.08em;text-transform:uppercase;opacity:.75;border-top:3px solid transparent;margin-top:-1px}
+.tabbar a[aria-current=true]{opacity:1;border-top-color:var(--accent)}
+body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -191,7 +196,7 @@ dialog::backdrop{background:rgba(11,17,23,.65)}
     <nav aria-label="Основное меню"><ul>
       <li><a href="#recipes">Рецепты</a></li><li><a href="#diary">Мой день</a></li><li><a href="#how">Как готовить</a></li>
     </ul></nav>
-    <a class="btn" href="#recipes" style="min-height:42px;padding:0 20px">Рецепты</a>
+    <a class="btn" href="#diary" style="min-height:42px;padding:0 20px">Мой день</a>
   </div>
 </header>
 
@@ -200,7 +205,7 @@ dialog::backdrop{background:rgba(11,17,23,.65)}
     <div class="wrap">
       <h1>Теодарская пицца 1000 мускулов</h1>
       <p class="lead">Белковые рецепты: пицца, хачапури, оладьи, шаурма, поке, запеканки и другие. Простые ингредиенты, у каждого блюда посчитаны калории и БЖУ.</p>
-      <div class="cta"><a class="btn" href="#recipes">Смотреть рецепты</a><a class="btn ghost" href="#how">Как готовить</a></div>
+      <div class="cta"><a class="btn" href="#recipes">Смотреть рецепты</a><a class="btn ghost" href="#diary">Мой день</a></div>
       <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="stats">
         <div><strong>до 65 г</strong>белка в одной порции</div>
@@ -307,6 +312,7 @@ dialog::backdrop{background:rgba(11,17,23,.65)}
 </main>
 
 <footer><div class="wrap"><span>© Теодарская Пицца 1000 мускулов</span><span>Значения КБЖУ ориентировочные и не заменяют консультацию врача или диетолога.</span></div></footer>
+<div class="tabbar" role="navigation" aria-label="Быстрый доступ"><a href="#diary">Мой день</a><a href="#recipes">Рецепты</a></div>
 
 <script>
 const R=[
@@ -480,6 +486,8 @@ $('dList').addEventListener('click',e=>{const b=e.target.closest('[data-act]');i
 function tick(){const t=today();if(t!==lastToday){if(sel===lastToday)sel=t;lastToday=t;render()}}
 setInterval(tick,30000);document.addEventListener('visibilitychange',tick);
 (async()=>{const s=await Store.load();if(s&&s.days)D={goals:{...DEF,...s.goals},goalsSet:!!s.goalsSet,days:s.days};sel=lastToday=today();render()})();
+const tb=[...document.querySelectorAll('.tabbar a')],io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)tb.forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -45% 0px'});
+['diary','recipes'].forEach(i=>io.observe($(i)));
 </script>
 </body>
 </html>
