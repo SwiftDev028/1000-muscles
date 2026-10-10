@@ -213,7 +213,7 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
       <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="stats">
         <div><strong>до 65 г</strong>белка в одной порции</div>
-        <div><strong>15 рецептов</strong>с готовыми цифрами</div>
+        <div><strong>20 рецептов</strong>с готовыми цифрами</div>
         <div><strong>Б / Ж / У</strong>посчитаны для каждого рецепта</div>
       </div>
     </div>
@@ -224,10 +224,10 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
       <div class="sec-head">
         <div><h2>Рецепты</h2><p style="margin-top:12px">КБЖУ приблизительные, рассчитаны по средним справочным данным. Размер порции указан в карточке.</p></div>
         <div class="tabs" role="group" aria-label="Категории">
-          <button class="tab" data-f="all" aria-pressed="true">Все · 15</button>
-          <button class="tab" data-f="bake" aria-pressed="false">Выпечка · 5</button>
+          <button class="tab" data-f="all" aria-pressed="true">Все · 20</button>
+          <button class="tab" data-f="bake" aria-pressed="false">Выпечка · 8</button>
           <button class="tab" data-f="chicken" aria-pressed="false">Курица · 4</button>
-          <button class="tab" data-f="light" aria-pressed="false">Лёгкое · 4</button>
+          <button class="tab" data-f="light" aria-pressed="false">Лёгкое · 6</button>
           <button class="tab" data-f="sweet" aria-pressed="false">Сладкое · 2</button>
         </div>
       </div>
@@ -254,11 +254,21 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
   <dialog id="dlgAdd" aria-labelledby="dlgT">
     <h3 id="dlgT">Добавить еду</h3>
     <div class="choose" id="fC">
+      <button type="button" class="choice" data-m="f"><b>Мои продукты</b><span>Готовые продукты с известной калорийностью. Выберите и укажите вес или количество.</span></button>
       <button type="button" class="choice" data-m="r"><b>Блюдо из рецептов</b><span>Выберите рецепт с сайта. Калории и БЖУ подставятся сами.</span></button>
       <button type="button" class="choice" data-m="p"><b>Свой продукт</b><span>Впишите название, вес и калории, например куриную грудку.</span></button>
       <div class="dbtns"><button class="btn ghost" type="button" data-close>Отмена</button></div>
     </div>
     <label class="fld" id="tmW" style="margin-top:14px" hidden>Время<input type="time" id="tm"></label>
+    <form id="fF" class="dform" hidden>
+      <p class="hint">Выберите продукт и укажите, сколько вы съели. Калории и БЖУ посчитаются сами.</p>
+      <label class="fld">Продукт<select id="fSel"></select></label>
+      <label class="fld"><span id="fQL">Количество, г</span><input id="fQ" type="number" min="0.1" step="any" inputmode="decimal" value="30" required></label>
+      <div class="hint" id="fInfo"></div>
+      <div class="dprev" id="fPrev"></div>
+      <div class="dbtns"><button class="btn ghost bk" type="button">← Назад</button><button class="btn" type="submit">Добавить</button></div>
+      <button class="btn ghost" type="button" id="fDel" hidden>Удалить продукт из списка</button>
+    </form>
     <form id="fR" class="dform">
       <p class="hint">Выберите блюдо и число порций. Калории и БЖУ посчитаются автоматически.</p>
       <label class="fld">Рецепт<select id="rSel"></select></label>
@@ -272,7 +282,7 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
       <label class="fld">Что съели?<input id="pN" type="text" placeholder="Куриная грудка" maxlength="60" required></label>
       <div class="row2">
         <label class="fld">Количество<input id="pQ" type="number" min="0.1" step="any" inputmode="decimal" value="100" required></label>
-        <label class="fld">Единица<select id="pU"><option value="г">граммы</option><option value="порц.">порции</option></select></label>
+        <label class="fld">Единица<select id="pU"><option value="г">граммы</option><option value="порц.">порции</option><option value="шт.">штуки</option></select></label>
       </div>
       <div class="hint" id="pH"></div>
       <div class="row2">
@@ -282,6 +292,7 @@ body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}}
         <label class="fld">Углеводы, г<input id="pc" type="number" min="0" step="any" inputmode="decimal" value="0" required></label>
       </div>
       <div class="dprev" id="pPrev"></div>
+      <label class="opt" id="pSaveW"><input type="checkbox" id="pSave" checked> <span>Сохранить в «Мои продукты», чтобы не вводить заново</span></label>
       <div class="dbtns"><button class="btn ghost bk" type="button">← Назад</button><button class="btn" type="submit" id="pOk">Добавить</button></div>
     </form>
   </dialog>
@@ -388,7 +399,32 @@ const R=[
   base:{k:315,p:22,f:19,c:14},
   i:["Небольшой кабачок 1 шт","Средняя морковь 1 шт","Яйцо 1 шт","Тёртый сыр 50 г","Соль и чёрный перец по вкусу","По желанию: сушёный чеснок, паприка, итальянские травы"],
   s:"Кабачок натереть на крупной тёрке, посолить, оставить на 5 минут и хорошо отжать. Морковь натереть, смешать с кабачком, яйцом, сыром и специями. Выложить слоем около 1 см на противень с силиконизированным пергаментом и выпекать 25 минут при 180 °C до золотистой корочки. Немного остудить, добавить любую начинку и свернуть рулетом.",
-  note:"Название в вашем тексте было нечитаемым, я назвал лепёшку по смыслу. Начинка в КБЖУ не входит."}
+  note:"Название в вашем тексте было нечитаемым, я назвал лепёшку по смыслу. Начинка в КБЖУ не входит."},
+ {cat:"bake",n:"Хлеб «Тартин» домашний",t:"6–8 часов",size:"Вся буханка ~720 г",div:7.2,dl:"100 г хлеба",
+  base:{k:1730,p:50,f:14,c:350},
+  i:["Пшеничная хлебопекарная мука 350 г","Ржаная мука 100 г","Пшеничная цельнозерновая мука 50 г","Ржаной солод 10 г","Активная пшеничная или ржаная закваска 100 г","Вода ~200 г","Подсолнечное масло 10 г","Соль 9 г"],
+  s:"1. Смешать три вида муки с ржаным солодом, добавить около 180 г воды, перемешать и оставить на 30–40 минут.<br>2. Добавить закваску, соль, масло и остальную воду, вымесить 5–7 минут. Тесто влажное и слегка липкое, это нормально.<br>3. Оставить на 3–4 часа при комнатной температуре. В первые 60–90 минут сделать 2–3 складывания с интервалом около 30 минут, пока тесто не увеличится в 1,5–2 раза.<br>4. Сформировать круглую или овальную буханку, сохранив воздух внутри, и уложить швом вверх в корзину или миску с хорошо присыпанным мукой полотенцем.<br>5. Оставить на расстойку на 1,5–2 часа.<br>6. Разогреть духовку вместе с противнем или чугунной формой до 240 °C. Перевернуть хлеб на пергамент, сделать один глубокий надрез. Выпекать 15 минут при 240 °C с паром (ёмкость с кипятком), затем убрать воду, снизить температуру до 210 °C и выпекать ещё 25–30 минут.<br>7. Остудить на решётке минимум 1 час. Горячим не резать.",
+  note:"На 100 г хлеба: ~240 ккал, Б 7, Ж 2, У 48–51. Воды может понадобиться чуть больше или меньше: тесто должно быть мягким и влажным, но держать форму. В дневнике одна порция равна 100 г хлеба."},
+ {cat:"bake",n:"Простой хлеб",t:"30–35 мин в духовке",size:"Вся буханка",div:8,dl:"1 ломтик, ⅛ буханки",
+  base:{k:850,p:26,f:3,c:178},
+  i:["Мука 250 г","Разрыхлитель 1,5 ч. л.","Соль ½ ч. л.","Вода 150–170 мл","Специи по желанию"],
+  s:"1. Смешать муку, разрыхлитель и соль.<br>2. Постепенно добавлять воду.<br>3. Замесить мягкое тесто, оно не должно сильно липнуть.<br>4. Сформировать небольшую буханку и сделать сверху 2–3 неглубоких надреза.<br>5. Выпекать при 180 °C около 30–35 минут.<br>6. Остудить хотя бы 10 минут.",
+  note:"Без дрожжей это плотный быстрый хлеб на разрыхлителе, а не воздушный батон. На ломтик (⅛ буханки) выходит около 105 ккал, Б 3, Ж 0,4, У 22. В дневнике одна порция равна ломтику."},
+ {cat:"bake",n:"Хлеб «Альтамура»",t:"3–4 часа",size:"Вся буханка ~400 г",div:4,dl:"100 г хлеба",
+  base:{k:1000,p:34,f:4,c:208},
+  i:["Мука из твёрдых сортов пшеницы 220 г","Пшеничная хлебопекарная мука 80 г","Манная крупа 20 г","Вода 210 мл","Прессованные дрожжи 8 г","Соль 6 г","Подсолнечное масло 10 г"],
+  s:"1. В тёплой воде растворить дрожжи.<br>2. Смешать оба вида муки и манную крупу.<br>3. Постепенно влить воду с дрожжами и замесить тесто.<br>4. Добавить соль и подсолнечное масло.<br>5. Вымешивать 8–10 минут, пока тесто не станет эластичным.<br>6. Накрыть миску и оставить в тёплом месте на 1–1,5 часа.<br>7. Когда тесто увеличится примерно вдвое, аккуратно сформировать круглую или овальную буханку.<br>8. Переложить на противень с пергаментом и оставить ещё на 40–50 минут.<br>9. Сделать сверху несколько надрезов.<br>10. Выпекать в предварительно разогретой духовке: 10 минут при 230 °C, затем 20–25 минут при 200 °C.<br>11. Остудить на решётке минимум 30 минут перед нарезкой.",
+  note:"На 100 г хлеба: 250 ккал, Б 8,5, Ж 1, У 52. Значения на всю буханку посчитаны по выходу ~400 г. По сумме ингредиентов буханка может весить больше, а калорий в ней около 1170. В дневнике одна порция равна 100 г хлеба."},
+ {cat:"light",n:"Сэндвич с лососем и брусникой",t:"10 мин",size:"1 порция: ½ сэндвича, ~110 г",
+  base:{k:297,p:13,f:13,c:30},
+  i:["Зерновой хлеб 50 г","Лосось слабосолёный 35 г","Сливочный сыр с зеленью 20 г","Салат фриллис 10 г","Брусника 5 г","Семена подсолнечника 3 г, семена льна 2 г, тыквенные семечки 2 г","Овсяные хлопья 2 г","Свежий укроп, немного","Хлеб для домашней версии: зерновой, с пшеничной и ржаной мукой, овсяными хлопьями и семенами"],
+  s:"1. Подсушить хлеб в тостере или духовке до лёгкой хрустящей корочки.<br>2. Равномерно намазать сливочный сыр.<br>3. Выложить листья салата.<br>4. Разложить тонкие ломтики слабосолёного лосося.<br>5. Добавить немного брусники.<br>6. Посыпать семенами подсолнечника, льна и тыквенными семечками.<br>7. Добавить свежий укроп.<br>8. Накрыть вторым кусочком хлеба и разрезать по диагонали.",
+  note:"На 100 г: 270 ккал, Б 12, Ж 12, У 27. С другим хлебом или сыром цифры изменятся."},
+ {cat:"light",n:"Сэндвич с тунцом и овощами",t:"15 мин",size:"Весь сэндвич ~220 г",
+  base:{k:484,p:31,f:14,c:57},
+  i:["Чиабатта 100 г","Тунец в собственном соку 70 г","Соус на основе растительного масла 20 г","Листовой салат 10 г","Огурец 10 г","Редис 10 г","Красный лук 5 г","Соль и чёрный перец по вкусу","Быстрый соус: подсолнечное масло 10 г, вода 5 г, немного горчицы, щепотка соли, несколько капель уксуса или лимонного сока (перемешать до однородности)"],
+  s:"1. Разрезать чиабатту вдоль.<br>2. По желанию слегка подрумянить в духовке при 180 °C 3–5 минут.<br>3. Слить жидкость с тунца и слегка размять его вилкой.<br>4. Смазать нижнюю часть чиабатты соусом.<br>5. Выложить листовой салат и тунец.<br>6. Нарезать тонкими ломтиками огурец и редис, добавить красный лук.<br>7. Посолить, поперчить и накрыть второй половиной чиабатты.",
+  note:"На 100 г: 220 ккал, Б 14, Ж 6,5, У 26. Цифры зависят от чиабатты, тунца и соуса."}
 ];
 
 const CAT={bake:"Выпечка",chicken:"Курица",light:"Лёгкое и быстрое",sweet:"Сладкое"};
@@ -420,7 +456,12 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
    Store — единственная точка работы с хранилищем. Для Supabase/другой БД заменить load/save, интерфейс не меняется. */
 const DEF={k:2200,p:160,f:70,c:200},KEYS=['k','p','f','c'];
 const Store={key:'diary:v1',async load(){try{return JSON.parse(localStorage.getItem(this.key))}catch(e){return null}},async save(s){try{localStorage.setItem(this.key,JSON.stringify(s));return true}catch(e){return false}}};
-let D={goals:{...DEF},goalsSet:false,days:{}},sel,editId=null,lastToday;
+const FOODS=[
+  {id:'b1',name:'Протеин WHEY FUNCTIONAL CHOCOLATE',unit:'г',q:30,per:{k:360,p:61,f:3.4,c:16.9}},
+  {id:'b2',name:'Кофе MacCoffe CAPPUCCINO DITORINO',unit:'порц.',q:1,per:{k:111,p:0.7,f:2.5,c:21.3}},
+  {id:'b3',name:'Яйца С0',unit:'шт.',q:1,per:{k:100,p:7.9,f:7.8,c:0.5}}
+];
+let D={goals:{...DEF},goalsSet:false,days:{},products:[]},sel,editId=null,lastToday;
 const $=id=>document.getElementById(id);
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pad=n=>String(n).padStart(2,'0');
@@ -450,27 +491,47 @@ function render(){
   $('dList').innerHTML=es.length?es.map(e=>{const t=tot(e);return `<article class="entry" data-id="${e.id}"><div class="eh"><div><time>${e.time}</time><h4>${esc(e.name)}</h4></div><div class="ek">${R0(t.k)} ккал</div></div><div class="em">Белки ${R0(t.p)} г / Жиры ${R0(t.f)} г / Углеводы ${R0(t.c)} г · ${e.qty} ${e.unit}</div><div class="eact"><button type="button" data-act="edit">Изменить</button><button type="button" data-act="dup">Копия</button><button type="button" data-act="del">Удалить</button></div></article>`}).join(''):'<div class="dempty">Пока ничего не добавлено. Нажмите «+ Добавить еду».</div>';
   $('dSum').innerHTML=`<span>Итого: ${R0(T.k)} ккал</span><span>Б ${R0(T.p)} г / Ж ${R0(T.f)} г / У ${R0(T.c)} г</span>`;
 }
-function setMode(m){$('fC').hidden=m!=='c';$('fR').hidden=m!=='r';$('fP').hidden=m!=='p';$('tmW').hidden=m==='c';
-  $('dlgT').textContent=editId?'Изменить запись':m==='c'?'Что добавить?':m==='r'?'Блюдо из рецептов':'Свой продукт';
+function setMode(m){$('fF').hidden=m!=='f';$('fC').hidden=m!=='c';$('fR').hidden=m!=='r';$('fP').hidden=m!=='p';$('tmW').hidden=m==='c';
+  $('dlgT').textContent=editId?'Изменить запись':m==='c'?'Что добавить?':m==='f'?'Мои продукты':m==='r'?'Блюдо из рецептов':'Свой продукт';
   document.querySelectorAll('.bk').forEach(b=>b.textContent=editId?'Отмена':'← Назад');
-  if(m==='r')prevR();if(m==='p')prevP()}
+  if(m==='f'){fillFoods();prevF()}if(m==='r')prevR();if(m==='p')prevP()}
+/* ===== Мои продукты: готовая база, чтобы не вводить данные вручную ===== */
+const allFoods=()=>FOODS.concat(D.products||[]);
+const nf=v=>String(Math.round(v*10)/10).replace('.',',');
+const UL={'г':'Количество, г','шт.':'Количество, шт.','порц.':'Количество порций'};
+const curFood=()=>allFoods().find(f=>f.id===$('fSel').value)||allFoods()[0];
+function fillFoods(keep){
+  const own=D.products||[],old=keep||$('fSel').value;
+  $('fSel').innerHTML='<optgroup label="Готовые продукты">'+FOODS.map(f=>`<option value="${f.id}">${esc(f.name)}</option>`).join('')+'</optgroup>'+(own.length?'<optgroup label="Мои сохранённые">'+own.map(f=>`<option value="${f.id}">${esc(f.name)}</option>`).join('')+'</optgroup>':'');
+  if(allFoods().some(f=>f.id===old))$('fSel').value=old;
+  pickFood()}
+function pickFood(){const f=curFood();$('fQ').value=f.q;$('fQL').textContent=UL[f.unit]||'Количество';
+  const base=f.unit==='г'?'На 100 г':f.unit==='шт.'?'На 1 штуку':'На 1 порцию';
+  $('fInfo').textContent=`${base}: ${nf(f.per.k)} ккал · Б ${nf(f.per.p)} / Ж ${nf(f.per.f)} / У ${nf(f.per.c)} г`;
+  $('fDel').hidden=!String(f.id).startsWith('u');prevF()}
+function prevF(){const f=curFood();if(!f)return;const q=num($('fQ').value),m=f.unit==='г'?q/100:q;$('fPrev').textContent='Итого: '+line(f.per.k*m,f.per.p*m,f.per.f*m,f.per.c*m)}
 function line(k,p,f,c){return `${R0(k)} ккал · Б ${R0(p)} / Ж ${R0(f)} / У ${R0(c)} г`}
-function perR(){const r=R[+$('rSel').value],on=r.opt&&$('rOpt').checked,o={};KEYS.forEach(x=>o[x]=r.base[x]+(on?r.opt[x]:0));return{r,on,o}}
+function perR(){const r=R[+$('rSel').value],on=r.opt&&$('rOpt').checked,o={};KEYS.forEach(x=>o[x]=(r.base[x]+(on?r.opt[x]:0))/(r.div||1));return{r,on,o}}
 function prevR(){const{r,o}=perR(),q=num($('rQty').value);$('rOptW').hidden=!r.opt;if(r.opt)$('rOptT').textContent=r.opt.label;$('rPrev').textContent='Итого: '+line(o.k*q,o.p*q,o.f*q,o.c*q)}
-function prevP(){const u=$('pU').value,q=num($('pQ').value),m=u==='г'?q/100:q;$('pH').textContent=u==='г'?'Ккал и БЖУ укажите на 100 г продукта.':'Ккал и БЖУ укажите на 1 порцию.';$('pPrev').textContent='Итого: '+line(num($('pk').value)*m,num($('pp').value)*m,num($('pf').value)*m,num($('pc').value)*m)}
-function openAdd(){editId=null;$('tm').value=nowT();$('rQty').value=1;$('rOpt').checked=false;$('pOk').textContent='Добавить';$('fP').reset();$('pQ').value=100;setMode('c');$('dlgAdd').showModal()}
-function openEdit(e){editId=e.id;$('tm').value=e.time;$('pN').value=e.name;$('pQ').value=e.qty;$('pU').value=e.unit;$('pk').value=e.per.k;$('pp').value=e.per.p;$('pf').value=e.per.f;$('pc').value=e.per.c;$('pOk').textContent='Сохранить';setMode('p');$('dlgAdd').showModal()}
+function prevP(){const u=$('pU').value,q=num($('pQ').value),m=u==='г'?q/100:q;$('pH').textContent=u==='г'?'Ккал и БЖУ укажите на 100 г продукта.':u==='шт.'?'Ккал и БЖУ укажите на 1 штуку.':'Ккал и БЖУ укажите на 1 порцию.';$('pPrev').textContent='Итого: '+line(num($('pk').value)*m,num($('pp').value)*m,num($('pf').value)*m,num($('pc').value)*m)}
+function openAdd(){editId=null;$('pSaveW').hidden=false;$('pSave').checked=true;$('tm').value=nowT();$('rQty').value=1;$('rOpt').checked=false;$('pOk').textContent='Добавить';$('fP').reset();$('pQ').value=100;setMode('c');$('dlgAdd').showModal()}
+function openEdit(e){editId=e.id;$('pSaveW').hidden=true;$('tm').value=e.time;$('pN').value=e.name;$('pQ').value=e.qty;$('pU').value=e.unit;$('pk').value=e.per.k;$('pp').value=e.per.p;$('pf').value=e.per.f;$('pc').value=e.per.c;$('pOk').textContent='Сохранить';setMode('p');$('dlgAdd').showModal()}
 function save(o){const d=D.days[sel]||(D.days[sel]={entries:[]}),time=$('tm').value||nowT();
   if(editId){const i=d.entries.findIndex(e=>e.id===editId);if(i>=0)d.entries[i]={...d.entries[i],...o,time}}else d.entries.push({id:newId(),time,...o});
   $('dlgAdd').close();persist();render()}
-$('rSel').innerHTML=Object.keys(CAT).map(c=>`<optgroup label="${CAT[c]}">`+R.map((r,i)=>r.cat===c?`<option value="${i}">${esc(r.n)}</option>`:'').join('')+'</optgroup>').join('');
+$('rSel').innerHTML=Object.keys(CAT).map(c=>`<optgroup label="${CAT[c]}">`+R.map((r,i)=>r.cat===c?`<option value="${i}">${esc(r.n)}${r.div?' — порция '+esc(r.dl):''}</option>`:'').join('')+'</optgroup>').join('');
 ['rSel','rQty','rOpt'].forEach(i=>$(i).addEventListener('input',prevR));
 ['pU','pQ','pk','pp','pf','pc'].forEach(i=>$(i).addEventListener('input',prevP));
 document.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.m)));
 document.querySelectorAll('.bk').forEach(b=>b.addEventListener('click',()=>editId?$('dlgAdd').close():setMode('c')));
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
-$('fR').addEventListener('submit',e=>{e.preventDefault();const{r,on,o}=perR(),l=on?r.opt.label:'';save({name:r.n+(on?' ('+l.charAt(0).toLowerCase()+l.slice(1)+')':''),qty:num($('rQty').value)||1,unit:'порц.',per:o})});
-$('fP').addEventListener('submit',e=>{e.preventDefault();save({name:$('pN').value.trim()||'Продукт',qty:num($('pQ').value)||1,unit:$('pU').value,per:{k:num($('pk').value),p:num($('pp').value),f:num($('pf').value),c:num($('pc').value)}})});
+$('fSel').addEventListener('change',pickFood);$('fQ').addEventListener('input',prevF);
+$('fF').addEventListener('submit',e=>{e.preventDefault();const f=curFood();save({name:f.name,qty:num($('fQ').value)||f.q,unit:f.unit,per:{...f.per}})});
+$('fDel').addEventListener('click',()=>{const f=curFood();if(String(f.id).startsWith('u')&&confirm('Удалить «'+f.name+'» из списка продуктов?')){D.products=D.products.filter(x=>x.id!==f.id);persist();fillFoods()}});
+$('fR').addEventListener('submit',e=>{e.preventDefault();const{r,on,o}=perR(),l=on?r.opt.label:'';save({name:r.n+(r.div?' (1 порц. = '+r.dl+')':'')+(on?' ('+l.charAt(0).toLowerCase()+l.slice(1)+')':''),qty:num($('rQty').value)||1,unit:'порц.',per:o})});
+$('fP').addEventListener('submit',e=>{e.preventDefault();const o={name:$('pN').value.trim()||'Продукт',qty:num($('pQ').value)||1,unit:$('pU').value,per:{k:num($('pk').value),p:num($('pp').value),f:num($('pf').value),c:num($('pc').value)}};
+  if(!editId&&$('pSave').checked){D.products=D.products||[];const i=D.products.findIndex(x=>x.name===o.name&&x.unit===o.unit),it={id:i>=0?D.products[i].id:'u'+newId(),name:o.name,unit:o.unit,q:o.qty,per:{...o.per}};if(i>=0)D.products[i]=it;else D.products.push(it)}
+  save(o)});
 $('dAdd').addEventListener('click',openAdd);
 $('dGoals').addEventListener('click',()=>{KEYS.forEach(x=>$('g'+x).value=D.goals[x]);$('dlgGoals').showModal()});
 $('fG').addEventListener('submit',e=>{e.preventDefault();const n={},old=D.goals;KEYS.forEach(x=>n[x]=num($('g'+x).value)||old[x]);
@@ -482,7 +543,7 @@ $('dList').addEventListener('click',e=>{const b=e.target.closest('[data-act]');i
   else openEdit(en)});
 function tick(){const t=today();if(t!==lastToday){sel=lastToday=t;render()}}
 setInterval(tick,30000);document.addEventListener('visibilitychange',tick);
-(async()=>{const s=await Store.load();if(s&&s.days)D={goals:{...DEF,...s.goals},goalsSet:!!s.goalsSet,days:s.days};sel=lastToday=today();render()})();
+(async()=>{const s=await Store.load();if(s&&s.days)D={goals:{...DEF,...s.goals},goalsSet:!!s.goalsSet,days:s.days,products:s.products||[]};sel=lastToday=today();render()})();
 const tb=[...document.querySelectorAll('.tabbar a')],io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)tb.forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -45% 0px'});
 ['diary','recipes'].forEach(i=>io.observe($(i)));
 </script>
